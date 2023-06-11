@@ -17,7 +17,7 @@ public class SendMoneyLogin {
      * @param email Contains the email of the user.
      * @param password Contains the password of the user.
      */
-    public String registerUser(String email, String password) {
+    public boolean registerUser(String email, String password) {
         DriverUtil driverUtil = new DriverUtil();
         try {
             navigationSendMoneyWeb(driverUtil);
@@ -27,7 +27,8 @@ public class SendMoneyLogin {
             driverUtil.driverWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()='Create your account']")));
             driverUtil.getChromeDriver().findElement(By.id("email")).sendKeys(email);
             driverUtil.getChromeDriver().findElement(By.id("password")).sendKeys(password);
-            return driverUtil.getChromeDriver().findElement(By.xpath("//button[text()='Register now']")).getAttribute("innerHTML");
+            WebElement registerNow = driverUtil.driverWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Register now']")));
+            return registerNow.isEnabled();
         } finally {
             driverUtil.quitDriver();
         }
