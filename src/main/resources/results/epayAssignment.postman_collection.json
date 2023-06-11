@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "eda1fd36-9803-40b0-b680-3a42b785e2a6",
+		"name": "epayAssignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6958988",
+		"_collection_link": "https://blue-firefly-644737.postman.co/workspace/d7a42e12-be91-4545-a891-3a26199997af/collection/6958988-eda1fd36-9803-40b0-b680-3a42b785e2a6?action=share&creator=6958988&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "GET Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var testExecution = false;\r",
+							"\r",
+							"pm.test(\"API response status\", function () {\r",
+							"    pm.expect(pm.response).to.have.status(200);\r",
+							"    testExecution = true;\r",
+							"});\r",
+							"\r",
+							"if( testExecution){\r",
+							"pm.test(\"Title/Body validation\",function(){\r",
+							"   var jsonResponse = pm.response.json();\r",
+							"   if (jsonResponse){\r",
+							"       for(var i=0; i < jsonResponse.length; i++){\r",
+							"           pm.expect(jsonResponse[i].title).to.exist;\r",
+							"           pm.expect(jsonResponse[i].body).to.exist;\r",
+							"       }\r",
+							"       pm.expect(pm.response.text()).not.to.include(\"zombie\");\r",
+							"   }\r",
+							"   else{\r",
+							"        pm.expect(jsonResponse).exist.to.false\r",
+							"   }\r",
+							"});\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var testExecution = false;\r",
+							"pm.test('Check status code',function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201])\r",
+							"    testExecution = true;\r",
+							"})\r",
+							"\r",
+							"if(testExecution){\r",
+							"    pm.test(\"Response message validation\",function(){\r",
+							"       var jsonResponse = pm.response.json();\r",
+							"   if (jsonResponse){ \r",
+							"    pm.expect(jsonResponse.json.topping).to.include.members(['bacon','cheese','mushroom']);\r",
+							"    pm.expect(jsonResponse.json.topping).not.to.include.members(['chicken']);\r",
+							"    }\r",
+							"    else{\r",
+							"            pm.expect(jsonResponse).exist.to.false\r",
+							"    }\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\"student\": \"Tim Allen\", \r\n\"email_address\": \"tim@homeimprovement.com\", \r\n\"phone\": \"(408) 8674530\", \r\n\"current_grade\": \"B+\", \r\n\"topping\": [ \r\n\"bacon\", \r\n\"cheese\", \r\n\"mushroom\" \r\n] \r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://httpbin.org/post",
+					"protocol": "https",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

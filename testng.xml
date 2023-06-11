@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test_Suite" parallel="true" thread-count="2">
+   <test name="Epay Assignment Tests">
+      <classes>
+         <class name="com.epay.assignment.CurrencyConversionTest"/>
+         <class name="com.epay.assignment.SendMoneyLoginTest"/>
+      </classes>
+   </test>
+   </suite>
